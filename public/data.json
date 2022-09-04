@@ -1,0 +1,67 @@
+[
+  {
+  "name":"Altenkirch Fly Rod Two-handed Spey Rod",
+  "price":"120",
+  "minQty":"20", 
+  "maxQty":"40",
+  "description":"Made in the USA Highest quality diamond-polished Hialoy ceramic stripper guides and tip Choice of regular or Split Grip Milled Aluminum Reel Seat  Gold anodized Rod bag included Imported from USA.",
+  "img":"https://i.ibb.co/b7tt6hp/e1.jpg"
+  },
+  {
+  "name":"Goture Portable Fishing Line Winder",
+  "price":"115",
+  "minQty":"50", 
+  "maxQty":"100",
+  "description":"Compact and lightweight, easy to remove and install.Material:Aluminum&rubber Height:17cm/6.7in Item weight:Approx. 122g/4.3oz Package size:21*15*4cm/8.3*5.9*1.6in Package weight:Approx.128g/4.5oz",
+  "img":"https://i.ibb.co/jJs2RRc/e2.jpg"
+  },
+
+  {
+  "name":"Laser Jig Bass Fishing Lure Hard Bait Tackle",
+  "price":"110",
+  "minQty":"30", 
+  "maxQty":"60",
+  "description":"Item Specifics:Material: metal Length: 6.3cm Weight: 13.6g Color: red blue",
+  "img":"https://i.ibb.co/9892wMV/e3.jpg"
+  },
+  {
+  "name":"Yoshikawa Rolling Barrel Fishing Swivel Stainless",
+  "price":"110",
+  "minQty":"30", 
+  "maxQty":"60",
+  "description":"STRONG. Mainly made of stainless steel, sturdy constructed, ensure high strength.DURABLE. With Nickel plated payer, extra corrosion resistance and abrasion resistance in addition to the stainless steel core.",
+  "img":"https://i.ibb.co/j37G2QT/e4.jpg"
+  },
+  {
+  "name":"Black Red Casting Spinning Reel",
+  "price":"105",
+  "minQty":"40", 
+  "maxQty":"80",
+  "description":"Fish Rod Closed Size : 17.3 inch x 1.2 inch ;Fish Rod Extended Length : 6.56 Ft;Fishing Spinning Reel Model No. : CK-200 Dimension (When Folded) : 10 x 8 x 10 cm / 3.9 inch x 3.1 inch x 3.9 inch (L*W*H);Main Color : Red, Black, Silver Tone, Orange Weight : 299g;Package Content : 1 x Fishing Rod, 1 x Fishing Spinning Reel",
+  "img":"https://i.ibb.co/5rSKRvZ/e5.jpg"
+  },
+  {
+  "name":"Piscifun Aluminum Fishing Pliers Braid Cutters",
+  "price":"140",
+  "minQty":"50", 
+  "maxQty":"80",
+  "description":"100 Foot 550 Cord Hanks Type III 550 pound 7-Strand core Commercial Paracord. Diameter is approximately 1/8",
+  "img":"https://i.ibb.co/231dzct/e6.jpg"
+  },
+  {
+  "name":"Freshwater and Saltwater Spinning Reel",
+  "price":"140",
+  "minQty":"50", 
+  "maxQty":"80",
+  "description":"The entire fishing reel is coated with our saltwater treatment to prevent corrosion and ensure reel longevity. Of course, this reel for saltwater is also suitable for freshwater.",
+  "img":"https://i.ibb.co/fpGhcKP/e7.jpg"
+  },
+  {
+  "name":"40mm Biomimetic Sinking Fishing Lure",
+  "price":"140",
+  "minQty":"50", 
+  "maxQty":"80",
+  "description":"Specification: Matetial: ABS, Stainless Steel Body length: 40mm Diving depth: 0-100cm Weight: 4.5g Style: A,B,C,D,E",
+  "img":"https://i.ibb.co/R6HKKrR/e8.jpg"
+  }
+]
