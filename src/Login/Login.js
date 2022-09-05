@@ -1,7 +1,7 @@
 import React from 'react';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 // import logo from '../../assets/images/logo.png';
 import auth from '../firebase.init';
 import Loading from '../Components/Shared/Loading/Loading';
@@ -21,12 +21,16 @@ const Login = () => {
         loading,
         error,
     ] = useSignInWithEmailAndPassword(auth);
+   
     // const [token] = useToken(user);
 
     // if (token) {
     //     navigate('/dashboard')
     //     toast.success('You loggin successfully');
-    // }
+
+    if(user){
+        navigate('/')
+    }
 
     if (error) {
         signInError = <ErrorMessages>{error?.message}</ErrorMessages>
@@ -38,7 +42,7 @@ const Login = () => {
         signInWithEmailAndPassword(data.email, data.password);
         console.log(data.email);
     }
-
+  
     console.log(user);
 
     return (

@@ -4,9 +4,9 @@ import Equipment from '../Equipment/Equipment';
 const EquipmentSection = () => {
     const [equipments,setEquipment] = useState([]);
     useEffect(()=>{
-        fetch('data.json')
+        fetch('http://localhost:5000/equitment')
         .then(res=>res.json())
-        .then(data=>setEquipment(data))
+        .then(data=>setEquipment(data.slice(0,6)))
     },[]);
     return (
         <section id='product'>

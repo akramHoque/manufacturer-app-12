@@ -29,6 +29,9 @@ const SignUp = () => {
     //     toast.success('WELCOME TO FISHZOME');
     // }
 
+    if(user){
+        navigate('/')
+    }
     if (error) {
         signInError = <ErrorMassage>{error?.message}</ErrorMassage>
     }
