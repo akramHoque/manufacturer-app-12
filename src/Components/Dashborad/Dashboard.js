@@ -34,17 +34,17 @@ const Dashboard = () => {
                             </div>
                             }
                         </label>
-                <li><Link to="/dashboard">My Profile</Link></li>
-                   
+                        <li><Link to="/dashboard">My Profile</Link></li>
+                   {!admin && <>
                     <li><Link to="/dashboard/order">My Order</Link></li>
-                    <li><Link to="/dashboard/review">My Review</Link></li>
+                    <li><Link to="/dashboard/review">My Review</Link></li></>}
                     
-                   
-                     <li><Link to="/dashboard/users">Make an Admin</Link></li>
+                    {admin && <>
+                    <li><Link to="/dashboard/users">Make an Admin</Link></li>
                     <li><Link to="/dashboard/add-product">Add a Product</Link></li>
                     <li><Link to="/dashboard/manage-product">Manage Products</Link></li>
-                     <li><Link to="/dashboard/manage-all-order">Manage All Orders</Link></li>
-                   
+                       <li><Link to="/dashboard/manage-all-order">Manage All Orders</Link></li>
+                    </>}
                 </ul>
             </div>
         </div>
