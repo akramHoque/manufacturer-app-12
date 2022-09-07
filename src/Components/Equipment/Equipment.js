@@ -8,7 +8,7 @@ const Equipment = ({equipment}) => {
         navigate(`/order/${id}`);
     }
     return (
-        <div className="card w-96  shadow-xl">
+        <div className="card w-80  shadow-xl">
         <figure className="px-10 pt-10">
           <img src={img} alt="" className="rounded-2xl transition ease-in-out delay-100 hover:-translate-y-1 hover:scale-110" />
         </figure>

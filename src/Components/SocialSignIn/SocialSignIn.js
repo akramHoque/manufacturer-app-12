@@ -1,41 +1,28 @@
 import React from 'react';
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
-import { useLocation, useNavigate } from 'react-router-dom';
-// import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import auth from '../../firebase.init';
-// import useToken from '../../Hooks/useToken';
+// import useToken from '../Hooks/useToken';
 import ErrorMessage from '../Shared/ErrorMessage/ErrorMessage';
 import Loading from '../Shared/Loading/Loading';
 
 const SocialSignIn = () => {
-    
-     const navigate = useNavigate();
-     const location = useLocation() ;
-     let from = location.state?.from?.pathname || "/" ;
-     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+    const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+    const navigate = useNavigate();
     // const [token] = useToken(gUser);
     let signInError;
 
-    // if (token) {
-    //     navigate('/')
-    //     toast.success('You loggin with google');
-    //     console.log(gUser);
-    // }
-
-    if(gUser){
+    if (gUser) {
         navigate('/')
+        toast.success('You loggin with google');
+        console.log(gUser);
     }
-    
     if (gError) {
         signInError = <ErrorMessage>{gError?.message}</ErrorMessage>
     }
 
-    if(gLoading){
-        return <Loading></Loading>
-    }
- 
-   
     return (
         <div>
             {signInError}{ gLoading && <Loading></Loading>}

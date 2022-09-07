@@ -8,10 +8,11 @@ import { toast } from 'react-toastify';
 import ErrorMassage from '../Shared/ErrorMessage/ErrorMessage';
 import Loading from '../Shared/ErrorMessage/ErrorMessage';
 import SocialSignIn from '../SocialSignIn/SocialSignIn';
-// import useToken from '../../Hooks/useToken';
+ import useToken from '../Hooks/useToken.js';
 
 const SignUp = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
+    
     const [
         createUserWithEmailAndPassword,
         user,
@@ -21,17 +22,15 @@ const SignUp = () => {
 
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
     const navigate = useNavigate()
-    // const [token] = useToken(user);
+     const [token] = useToken(user);
     let signInError;
 
-    // if (token) {
-    //     navigate('/')
-    //     toast.success('WELCOME TO FISHZOME');
-    // }
-
-    if(user){
-        navigate('/')
+    if (token) {
+         navigate('/')
+        toast.success('WELCOME TO FISH Hunt');
     }
+
+   
     if (error) {
         signInError = <ErrorMassage>{error?.message}</ErrorMassage>
     }

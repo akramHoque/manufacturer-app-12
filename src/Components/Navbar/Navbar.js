@@ -10,12 +10,13 @@ const Navbar = () => {
     const [user,loading] = useAuthState(auth);
     const navigate = useNavigate();
     const logout = () => {
-        const confirm = window.confirm('Are you sure to logout?');
-        if (confirm) {
+       
         signOut(auth);
+        localStorage.removeItem('accessToken');
+        
      
     
-      };
+      
 
     }
     const menuItems =

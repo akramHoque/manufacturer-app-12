@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import React, { useEffect } from 'react';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 // import logo from '../../assets/images/logo.png';
@@ -7,8 +7,8 @@ import auth from '../firebase.init';
 import Loading from '../Components/Shared/Loading/Loading';
 import ErrorMessages from '../Components/ErrorMessages/ErrorMessages';
 import SocialSignIn from '../Components/SocialSignIn/SocialSignIn';
-// import useToken from '../../Hooks/useToken';
-// import { toast } from 'react-toastify';
+import useToken from '../Components/Hooks/useToken';
+
 
 const Login = () => {
     const { register, formState: { errors }, handleSubmit} = useForm();
@@ -22,16 +22,21 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
    
-    // const [token] = useToken(user);
+    const [token] = useToken(user);
+    const location  = useLocation()
+    let from = location.state?.from?.pathname || "/"
 
-    // if (token) {
-    //     navigate('/dashboard')
-    //     toast.success('You loggin successfully');
 
-    if(user){
-        navigate('/')
+    useEffect( () =>{
+        if (token) {
+            navigate(from, {replace: true})
+        }
+    }, [token, from, navigate])
+
+    if(loading){
+        return <Loading></Loading> 
     }
-
+ 
     if (error) {
         signInError = <ErrorMessages>{error?.message}</ErrorMessages>
     }
@@ -42,14 +47,13 @@ const Login = () => {
         signInWithEmailAndPassword(data.email, data.password);
         console.log(data.email);
     }
-  
+
     console.log(user);
 
     return (
         <div className="hero min-h-screen" >
             <div className="card w-full max-w-lg shadow-2xl">
                 <div className="pl-7 mt-5">
-                    Fish Hunt
                     <h1 className="text-primary font-bold pl-10"><span className='text-[#354069]'> Hello, </span>Welcome Back!</h1>
                 </div>
                 <div className="card-body">
@@ -114,7 +118,7 @@ const Login = () => {
                         Lost Password?
                         <button className="label-text-alt link link-hover link-primary link-white font-bold">Reset Pasword</button>
                     </label>
-                    <p><small>New to Here? <Link className=' hover:underline font-bold text-green-400' to="/signup">Create New Account</Link></small></p>
+                    <p><small>New to FishZone? <Link className=' hover:underline font-bold text-green-400' to="/signup">Create New Account</Link></small></p>
 
                   <SocialSignIn></SocialSignIn>
                 </div>
