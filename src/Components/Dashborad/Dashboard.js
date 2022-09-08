@@ -11,7 +11,7 @@ const Dashboard = () => {
   const [dbUser, setDbUser] = useState({});
   useEffect(() => {
     const email = user?.email;
-    fetch(`http://localhost:5000/user/${email}`, {
+    fetch(`https://afternoon-coast-40665.herokuapp.com/user/${email}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",

@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import auth from "../../firebase.init";
 import Loading from "../../Components/Shared/Loading/Loading";
 import { signOut } from "firebase/auth";
@@ -18,23 +18,21 @@ const Navbar = () => {
   const navbarItems = (
     <>
       <li>
-        <NavLink to="/">Home</NavLink>
+        <Link to="/">Home</Link>
       </li>
       <li>
-        <NavLink to="/contactUs">Contact Us</NavLink>
+        <Link to="/contactUs">Contact Us</Link>
       </li>
       <li>
-        <NavLink to="/blogs">Blogs</NavLink>
+        <Link to="/blogs">Blogs</Link>
       </li>
       <li>
-        <NavLink to="/myPortfolio">My Portfolio</NavLink>
+        <Link to="/myPortfolio">My Portfolio</Link>
       </li>
-      <li>
-              <NavLink to="/users">All Users</NavLink>
-        </li>
+      
       {user && (
         <li>
-          <NavLink to="/dashboard/myProfile">Dashboard</NavLink>
+          <Link to="/dashboard/myProfile">Dashboard</Link>
         </li>
       )}
       {user ? (
@@ -49,7 +47,7 @@ const Navbar = () => {
         </>
       ) : (
         <li>
-          <NavLink to="/login">Log in</NavLink>
+          <Link to="/login">Log in</Link>
         </li>
       )}
     </>
@@ -76,9 +74,9 @@ const Navbar = () => {
         </svg>
       </label>
       <div className="navbar-start">
-        <NavLink to="/" className="">
+        <Link to="/" className="">
          <span className="font-bold lg:text-3xl text-xl uppercase text-[#fff]">FISH HUNT</span>
-        </NavLink>
+        </Link>
       </div>
       <div className="navbar-env ml-auto">
         <div className="hidden lg:flex">

@@ -18,6 +18,7 @@ import RequiredAdmin from './Components/Hooks/RequiredAdmin';
 import MakeAdmin from './Components/Dashborad/AdminPanel/MakeAdmin';
 import Blogs from './Components/Blogs/Blogs'
 import NotFound from './Components/NotFound/NotFound';
+import Contact from './Components/Contact/Contact';
 
 
 
@@ -32,6 +33,8 @@ function App() {
         <Route path="/signup" element={<SignUp/>}></Route>
         <Route path="/myPortfolio" element={<MyPortfolio/>}></Route>
         <Route path = '/blogs' element= {<Blogs></Blogs>}></Route>
+        <Route path = "/contactUs" element = {<Contact></Contact>}></Route>
+        <Route path = "/contactUs" element = {<Contact></Contact>}></Route>
         <Route
           path="/purchase-product/:id"
           element={

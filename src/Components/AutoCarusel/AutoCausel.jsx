@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Slider from "react-slick";
 import './Carousel.css';
 
-export default class  .
+export default class  
 AutoPlay extends Component {
   render() {
     const settings = {
@@ -18,7 +18,7 @@ AutoPlay extends Component {
 
     return (
       <div className="slide-container my-10" id="deal">
-        <h2 className="stat-value mb-4 text-5xl font-bold">Our Crazy Client zone</h2>
+        <h2 className="stat-value mb-4 text-5xl text-[#1B1464] font-bold">Our Crazy Client zone</h2>
         <Slider {...settings}>
           <div>
             <img src="https://i.ibb.co/wdHGbgM/happy-young-man-with-fishing-rod-showing-size-of-fish-with-hands.jpg" alt="" />

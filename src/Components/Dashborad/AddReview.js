@@ -30,7 +30,7 @@ const AddReview = () => {
       text: reviewText,
       rating: rating,
     };
-    fetch(`http://localhost:5000/review`, {
+    fetch(`https://afternoon-coast-40665.herokuapp.com/review`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

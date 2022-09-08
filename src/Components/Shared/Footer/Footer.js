@@ -4,7 +4,7 @@ const Footer = () => {
     const today = new Date();
     const year = today.getFullYear();
     return (
-        <footer className="p-8 bg-cover bg-footer bg-gray-200">
+        <footer className="p-8 bg-cover bg-footer text-white bg-[#1B1464] ">
             <div className='footer'>
                 <div className=''>
                     <span className="footer-title">Services</span>
