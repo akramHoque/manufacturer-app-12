@@ -1,10 +1,10 @@
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Link, } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import auth from "../../firebase.init";
 import Loading from "../../Components/Shared/Loading/Loading";
 import { signOut } from "firebase/auth";
-import CustomLink from "../../Components/CustomLink";
+
 
 const Navbar = () => {
   const [user, loading] = useAuthState(auth);
@@ -18,23 +18,23 @@ const Navbar = () => {
   const navbarItems = (
     <>
       <li>
-        <CustomLink to="/">Home</CustomLink>
+        <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <CustomLink to="/contactUs">Contact Us</CustomLink>
+        <NavLink to="/contactUs">Contact Us</NavLink>
       </li>
       <li>
-        <CustomLink to="/blogs">Blogs</CustomLink>
+        <NavLink to="/blogs">Blogs</NavLink>
       </li>
       <li>
-        <CustomLink to="/myPortfolio">My Portfolio</CustomLink>
+        <NavLink to="/myPortfolio">My Portfolio</NavLink>
       </li>
       <li>
-              <CustomLink to="/users">All Users</CustomLink>
+              <NavLink to="/users">All Users</NavLink>
         </li>
       {user && (
         <li>
-          <CustomLink to="/dashboard/myProfile">Dashboard</CustomLink>
+          <NavLink to="/dashboard/myProfile">Dashboard</NavLink>
         </li>
       )}
       {user ? (
@@ -49,7 +49,7 @@ const Navbar = () => {
         </>
       ) : (
         <li>
-          <CustomLink to="/login">Log in</CustomLink>
+          <NavLink to="/login">Log in</NavLink>
         </li>
       )}
     </>
@@ -76,9 +76,9 @@ const Navbar = () => {
         </svg>
       </label>
       <div className="navbar-start">
-        <Link to="/" className="">
+        <NavLink to="/" className="">
          <span className="font-bold lg:text-3xl text-xl uppercase text-[#fff]">FISH HUNT</span>
-        </Link>
+        </NavLink>
       </div>
       <div className="navbar-env ml-auto">
         <div className="hidden lg:flex">

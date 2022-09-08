@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Slider from "react-slick";
 import './Carousel.css';
 
-export default class AutoPlay extends Component {
+export default class  .
+AutoPlay extends Component {
   render() {
     const settings = {
       dots: true,

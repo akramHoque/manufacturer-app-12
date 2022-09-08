@@ -16,6 +16,8 @@ import MyOrder from './Components/Dashborad/MyOrder';
 import MyPortfolio from './Components/MyPortfolio/MyPortfolio';
 import RequiredAdmin from './Components/Hooks/RequiredAdmin';
 import MakeAdmin from './Components/Dashborad/AdminPanel/MakeAdmin';
+import Blogs from './Components/Blogs/Blogs'
+import NotFound from './Components/NotFound/NotFound';
 
 
 
@@ -29,6 +31,7 @@ function App() {
         <Route path="/login" element={<Login/>}></Route>
         <Route path="/signup" element={<SignUp/>}></Route>
         <Route path="/myPortfolio" element={<MyPortfolio/>}></Route>
+        <Route path = '/blogs' element= {<Blogs></Blogs>}></Route>
         <Route
           path="/purchase-product/:id"
           element={
@@ -67,7 +70,7 @@ function App() {
 
           </Route>
 
-         
+          <Route path="*" element={<NotFound></NotFound>}></Route>
       </Routes>
       <ToastContainer />
     </div>
