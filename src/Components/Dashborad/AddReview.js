@@ -1,63 +1,86 @@
-import React from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { toast } from 'react-toastify';
-import auth from '../../firebase.init';
-import Rating from '../Shared/Rating/Rating';
-
+import React, { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { toast } from "react-toastify";
+import minus from "../../images/minus-sign.png";
+import plus from "../../images/plus.png";
+import auth from "../../firebase.init";
+import Loading from "../Shared/Loading/Loading";
 
 const AddReview = () => {
-    const [user,loading] = useAuthState(auth);
-
-    const handleBooking = event => {
-        event.preventDefault();
-        const body = event.target.body.value;
-        const Ratings = event.target.rating.value;
-        console.log(body,Ratings)
-
-
-        const reviews = {
-            name: user?.displayName,
-            img: user?.photoURL,
-            body: event.target.body.value,
-            Ratings: event.target.rating.value
-        }
-        event.target.reset();
-        //its time to Fetch for SENT data to server
-        fetch('http://localhost:5000/review', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(reviews)
-        })
-            .then(res => res.json())
-            .then(data => {
-                //conditional displayed server:line:35
-                if (data.acknowledged) {
-                    toast.success('We appreciated your review')
-                }
-                else {
-                    toast.error('Sent again')
-                }
-            });
-
+  const [user, loading] = useAuthState(auth);
+  const [rating, setRating] = useState(5);
+  const handleDecrease = () => {
+    if (rating > 1) {
+      setRating((rating) => rating - 0.5);
     }
-    return (
-        <div>
-          
-            <form onSubmit={handleBooking} className='grid grid-cols-1 gap-4 justify-items-center my-5 text-secondary'>
-            <h1 className='text-2xl lg:stat-value'>Plz Give your valuable review!</h1>
-            <div className="form-control">
-              <textarea type="text" name='body' required  className="textarea  mb-4" placeholder="Please tell about us"></textarea>
-              <Rating></Rating>
-              </div>
-                <input type="number" name='rating' required
-                    placeholder="Your rating" className="input input-bordered" />
-                <input type="submit" value="Submit" className="btn btn-secondary " />
-
-            </form>
+  };
+  const handleIncrease = () => {
+    if (rating < 5) {
+      setRating((rating) => rating + 0.5);
+    }
+  };
+  if (loading) {
+    return <Loading></Loading>;
+  }
+  const handleAddReview = (e) => {
+    e.preventDefault();
+    const reviewText = e.target.review.value;
+    const review = {
+      name: user.displayName,
+      text: reviewText,
+      rating: rating,
+    };
+    fetch(`http://localhost:5000/review`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+      body: JSON.stringify(review),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          toast.success("Thanks For Your Compliment");
+          e.target.reset();
+        }
+      });
+  };
+  return (
+    <div className="max-w-xs mx-auto">
+      <form onSubmit={handleAddReview} className="flex flex-col gap-2 my-8">
+        <input
+          type="text"
+          value={user.displayName}
+          readOnly
+          className="input rounded-md border border-orange-600 w-full"
+        />
+        <textarea
+          name="review"
+          className="textarea rounded-md border border-orange-600 w-full"
+          placeholder="Enter Your Review"
+        ></textarea>
+        <div className="pl-2 rounded-md border border-orange-600 flex w-44">
+          <button
+            type="button"
+            onClick={handleDecrease}
+            className="btn btn-ghost "
+          >
+            <img width={15} src={minus} alt="" />
+          </button>
+          <input type="text" value={rating} className="input w-16 text-lg " />
+          <button
+            type="button"
+            onClick={handleIncrease}
+            className="btn btn-ghost"
+          >
+            <img width={15} src={plus} alt="" />
+          </button>
         </div>
-    );
+        <input type="submit" value="Add" className="btn rounded-md border border-orange-600" />
+      </form>
+    </div>
+  );
 };
 
 export default AddReview;

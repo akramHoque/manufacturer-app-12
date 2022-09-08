@@ -1,55 +1,81 @@
-import React from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link, Outlet } from 'react-router-dom';
-import auth from '../../firebase.init';
-import profile from '../../images/profile.png';
-import useAdmin from '../Hooks/useAdmin';
-
+import React, { useEffect, useState } from "react";
+import { NavLink, Outlet } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
+import Loading from "../../Components/Shared/Loading/Loading";
+// import useAdmin from "../Hooks/useAdmin";
 
 const Dashboard = () => {
-    const [user] = useAuthState(auth);
-    const [admin] = useAdmin(user);
+  const [user, loading] = useAuthState(auth);
+//   const [admin, adminLoading] = useAdmin(user);
+  const [dbUser, setDbUser] = useState({});
+  useEffect(() => {
+    const email = user?.email;
+    fetch(`http://localhost:5000/user/${email}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setDbUser(data);
+      });
+  }, [user]);
 
-    return (
-        <div className="drawer">
-            <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content">
-                {/* <!-- Page content here --> */}
-                <label htmlFor="my-drawer" className=""> 
-                <h1 className='stat-value text-primary'> <span className='text-[#354069]'>DASH</span>BOARD</h1>
-                    <h3 className='text-purple-500'>Welcome to your Dashboard</h3></label>
-                {/*Render Nested Routes*/}
-                <Outlet></Outlet>
-            </div>
-            <div className="drawer-side">
-                <label htmlFor="my-drawer" className="drawer-overlay"></label>
-                <ul className="menu p-3 overflow-y-auto w-80 bg-secondary  text-white text-xl font-serif">
+  if (loading) {
+    return <Loading></Loading>;
+  }
 
-                <label tabIndex="0" className="avatar ml-4">
-                       {  user?.photoURL? <div className="w-32  mask mask-squircle">
-                                <img src={user?.photoURL} alt="" />
-                                </div>
-                              :<div className="w-24 rounded-full">
-                                <img src={profile} alt="" />
-                            </div>
-                            }
-                        </label>
-                        <li><Link to="/dashboard">My Profile</Link></li>
-                   {!admin && <>
-                    <li><Link to="/dashboard/order">My Order</Link></li>
-                    <li><Link to="/dashboard/review">My Review</Link></li></>}
-                    
-                    {admin && <>
-                    <li><Link to="/dashboard/users">Make an Admin</Link></li>
-                    <li><Link to="/dashboard/add-product">Add a Product</Link></li>
-                    <li><Link to="/dashboard/manage-product">Manage Products</Link></li>
-                       <li><Link to="/dashboard/manage-all-order">Manage All Orders</Link></li>
-                    </>}
-                </ul>
-            </div>
-        </div>
-
-    );
+  return (
+    <div className="drawer drawer-mobile">
+      <input id="dashboard-sidebar" type="checkbox" className="drawer-toggle" />
+      <div className="drawer-content bg-pink-50">
+        {/* <!-- Page content here --> */}
+        <Outlet></Outlet>
+      </div>
+      <div className="drawer-side">
+        <label htmlFor="dashboard-sidebar" className="drawer-overlay"></label>
+        <ul className="menu p-4 overflow-y-auto w-56 bg-base-100 text-base-content">
+          {/* <!-- Sidebar content here --> */}
+          <li>
+            <NavLink to="/dashboard/myProfile">My Profile</NavLink>
+          </li>
+          {dbUser.role === "admin" || (
+            <>
+              <li>
+                <NavLink to="/dashboard/myOrders">My Orders</NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/addReview">Add A Review</NavLink>
+              </li>
+            </>
+          )}
+          {/* {admin && (
+            <>
+              <li>
+                <NavLink to="/dashboard/addProduct">Add A Product</NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/manageProducts">
+                  Manage All Products
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/manageAllOrders">
+                  Manage All Orders
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/makeAdmin">Make Admin</NavLink>
+              </li>
+            </>
+          )} */}
+        </ul>
+      </div>
+    </div>
+  );
 };
 
 export default Dashboard;

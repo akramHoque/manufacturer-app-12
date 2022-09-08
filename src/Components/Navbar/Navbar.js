@@ -1,97 +1,113 @@
-import React from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link, useNavigate } from 'react-router-dom';
-
-import auth from '../../firebase.init';
-import profile from '../../images/profile.png';
-import { signOut } from 'firebase/auth';
+import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Link, } from "react-router-dom";
+import auth from "../../firebase.init";
+import Loading from "../../Components/Shared/Loading/Loading";
+import { signOut } from "firebase/auth";
+import CustomLink from "../../Components/CustomLink";
 
 const Navbar = () => {
-    const [user,loading] = useAuthState(auth);
-    const navigate = useNavigate();
-    const logout = () => {
-       
-        signOut(auth);
-        localStorage.removeItem('accessToken');
-        
-     
-    
-      
-
-    }
-    const menuItems =
+  const [user, loading] = useAuthState(auth);
+  if (loading) {
+    return <Loading></Loading>;
+  }
+  const handleSignOut = () => {
+    localStorage.removeItem("accessToken");
+    signOut(auth);
+  };
+  const navbarItems = (
+    <>
+      <li>
+        <CustomLink to="/">Home</CustomLink>
+      </li>
+      <li>
+        <CustomLink to="/contactUs">Contact Us</CustomLink>
+      </li>
+      <li>
+        <CustomLink to="/blogs">Blogs</CustomLink>
+      </li>
+      <li>
+        <CustomLink to="/myPortfolio">My Portfolio</CustomLink>
+      </li>
+      {user && (
+        <li>
+          <CustomLink to="/dashboard/myProfile">Dashboard</CustomLink>
+        </li>
+      )}
+      {user ? (
         <>
-            <li className='font-serif font-bold'>
-                <Link to="/">Home</Link>
-                <a href="/#product">Product Equipment</a>
-                <a href="/#review">Reviews</a>
-                <a href="/#cform">Who we are</a>
-                <a href="/blog">Blog</a>
-            </li>
-        </> //color#202447
-    
-    return (
-        <>
-            <div className="navbar sticky top-0 z-50 bg-[#e9e9e9]"> 
-                <div className="flex-1">
-
-                  Fish Hunt
-
-                    <div className="navbar-start">
-                        <div className="dropdown">
-                            <label tabIndex="0" className="btn btn-ghost lg:hidden">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
-                            </label>
-                            <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 ">
-                                {menuItems}
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-                <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal pr-20">
-                        {menuItems}
-                    </ul>
-                </div>
-
-                <div className="flex-none gap-2">
-                    <div className="form-control">
-                        <input type="text" placeholder="Search" className="input input-bordered" />
-                    </div>
-
-                    <div className="dropdown dropdown-end">
-                        <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
-                       {  user?.photoURL? <div className="w-10 rounded-full">
-                                <img src={user?.photoURL} alt="" />
-                                </div>
-                              :<div className="w-10 rounded-full">
-                                <img src={profile} alt="" />
-                            </div>
-                            }
-                        </label>
-                        <ul tabIndex="0" className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-                            <li>
-                          <Link to="/profile" className="justify-between text-purple-500 font-bold uppercase">
-                              {user?.displayName} 
-                                <span className="badge">View</span>
-                                </Link>
-                    
-                            </li>
-                            <li><Link to="/portfolio">My Portfolio</Link></li>
-                            {
-                                user && <li><Link to="/dashboard">Dashboard</Link></li>
-                            }
-                            <li>{user ? <button onClick={logout} className="btn btn-ghost">Logout</button> :
-                                <Link to="/login">Login</Link>}</li>
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
+          <button
+            onClick={handleSignOut}
+            className="btn rounded-sm border-0 bg-[#EE5A24] text-gray-200 mt-2 lg:mt-0"
+          >
+          <span className="pr-1 ">({user.displayName})</span>
+            Sign Out
+          </button>
         </>
-    );
+      ) : (
+        <li>
+          <CustomLink to="/login">Log in</CustomLink>
+        </li>
+      )}
+    </>
+  );
+  return (
+    <div className="navbar bg-[#1B1464] py-3 text-white sticky top-0 z-50 px-4 lg:px-12">
+      <label
+        htmlFor="dashboard-sidebar"
+        className="btn  mr-2 lg:hidden"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M4 6h16M4 12h8m-8 6h16"
+          />
+        </svg>
+      </label>
+      <div className="navbar-start">
+        <Link to="/" className="">
+         <span className="font-bold lg:text-3xl text-xl uppercase text-[#fff]">FISH HUNT</span>
+        </Link>
+      </div>
+      <div className="navbar-env ml-auto">
+        <div className="hidden lg:flex">
+          <ul className="menu menu-horizontal lg:text-white text-[#1B1464]  gap-2">{navbarItems}</ul>
+        </div>
+        <div className="dropdown dropdown-left">
+          <label tabIndex="0" className="btn btn-ghost lg:hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h8m-8 6h16"
+              />
+            </svg>
+          </label>
+          <ul
+            tabIndex="0"
+            className="menu menu-compact dropdown-content lg:text-white text-[#1B1464] bg-white mt-3 p-2 shadow font-bold rounded-sm w-52"
+          >
+            {navbarItems}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Navbar;

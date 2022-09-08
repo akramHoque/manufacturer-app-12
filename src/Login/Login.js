@@ -1,133 +1,102 @@
-import React, { useEffect } from 'react';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { useForm } from 'react-hook-form';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-// import logo from '../../assets/images/logo.png';
-import auth from '../firebase.init';
-import Loading from '../Components/Shared/Loading/Loading';
-import ErrorMessages from '../Components/ErrorMessages/ErrorMessages';
-import SocialSignIn from '../Components/SocialSignIn/SocialSignIn';
-import useToken from '../Components/Hooks/useToken';
-
+import React, { useRef } from "react";
+import google from "../images/google.png";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import auth from "../firebase.init";
+import {
+  useSendPasswordResetEmail,
+  useSignInWithEmailAndPassword,
+  useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
+import Loading from "../Components/Shared/Loading/Loading";
+import { toast } from "react-toastify";
+import useToken from "../Components/Hooks/useToken";
 
 const Login = () => {
-    const { register, formState: { errors }, handleSubmit} = useForm();
-    const navigate = useNavigate()
-    let signInError;
+  const getEmail = useRef("");
 
-    const [
-        signInWithEmailAndPassword,
-        user,
-        loading,
-        error,
-    ] = useSignInWithEmailAndPassword(auth);
-   
-    const [token] = useToken(user);
-    const location  = useLocation()
-    let from = location.state?.from?.pathname || "/"
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+  const [signInWithGoogle, GUser, GLoading, GError] = useSignInWithGoogle(auth);
+  const [sendPasswordResetEmail] = useSendPasswordResetEmail(auth);
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [token] = useToken(user || GUser);
 
-    useEffect( () =>{
-        if (token) {
-            navigate(from, {replace: true})
-        }
-    }, [token, from, navigate])
+  let from = location.state?.from?.pathname || "/";
 
-    if(loading){
-        return <Loading></Loading> 
+  if (loading || GLoading) {
+    return <Loading></Loading>;
+  }
+
+  if (token) {
+    navigate(from, { replace: true });
+  }
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    await signInWithEmailAndPassword(email, password);
+  };
+  const handlePassReset = async () => {
+    const email = getEmail.current.value;
+    await sendPasswordResetEmail(email);
+    if (email) {
+      toast.success("Sent Password Reset Link on Your Email");
+    } else {
+      toast.error("Enter Your Email");
     }
- 
-    if (error) {
-        signInError = <ErrorMessages>{error?.message}</ErrorMessages>
-    }
+  };
+  return (
+    <div className="my-12 grid justify-center items-center">
+      <div className="max-w-md bg-base-100 border border-slate-600 rounded p-8">
+        <h4 className="text-2xl font-bold mb-6">Login</h4>
+        <form onSubmit={handleLogin} className="form-control">
+          <input
+            ref={getEmail}
+            className="input   rounded-md border border-orange-600"
+            type="email"
+            name="email"
+            placeholder="Email"
+            required
+          />
 
-    
-    const onSubmit = data => {
-        console.log(data);
-        signInWithEmailAndPassword(data.email, data.password);
-        console.log(data.email);
-    }
+          <input
+            className="input   rounded-md border border-orange-600 mt-4"
+            placeholder="Password"
+            type="password"
+            name="password"
+            required
+          />
+          <p className="text-blue-500 mb-4 text-sm">
+            <button onClick={handlePassReset}>Forgot Password?</button>
+          </p>
 
-    console.log(user);
-
-    return (
-        <div className="hero min-h-screen" >
-            <div className="card w-full max-w-lg shadow-2xl">
-                <div className="pl-7 mt-5">
-                    <h1 className="text-primary font-bold pl-10"><span className='text-[#354069]'> Hello, </span>Welcome Back!</h1>
-                </div>
-                <div className="card-body">
-                    <form onSubmit={handleSubmit(onSubmit)} className="text-blue-600">
-                        <div className="form-control">
-                            <label className="label p-1">
-                                <span className="label-text text-xl">Email</span>
-                            </label>
-
-                            <input type="email" placeholder="email" className="input input-secondary text-xl" {...register("email", {
-                                required: {
-                                    value: true,
-                                    message: 'Email is Required'
-                                },
-                                pattern: {
-                                    value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
-                                    message: 'Provide a valid Email'
-                                }
-                            })} />
-
-
-                            <label className="label p-1">
-                                {errors.email?.type === 'required' && <span className="label-text-alt text-red-500">{errors.email.message}</span>}
-                                {errors.email?.type === 'pattern' && <span className="label-text-alt text-red-500">{errors.email.message}</span>}
-                            </label>
-                        </div>
-
-
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text text-xl">Password</span>
-                            </label>
-
-                            <input type="password" placeholder="password" className="input input-error text-xl"{...register("password", {
-                                required: {
-                                    value: true,
-                                    message: 'Password is Required'
-                                },
-                                minLength: {
-                                    value: 6,
-                                    message: 'Must be 6 characters or longer'
-                                }
-                            })} />
-
-
-                            <label className="label">
-                                {errors.password?.type === 'required' && <span className="label-text-alt text-red-500">{errors.password.message}</span>}
-                                {errors.password?.type === 'minLength' && <span className="label-text-alt text-red-500">{errors.password.message}</span>}
-                            </label>
-                        </div>
-
-                        {signInError} 
-                        { loading && <Loading></Loading>}
-
-
-                        <div className="form-control">
-                            <input type="submit" value="Login" className="btn btn-primary text-white
-                            mt-2 input-error" />
-                        </div>
-                    </form>
-                    <label className="label">
-                        Lost Password?
-                        <button className="label-text-alt link link-hover link-primary link-white font-bold">Reset Pasword</button>
-                    </label>
-                    <p><small>New to FishZone? <Link className=' hover:underline font-bold text-green-400' to="/signup">Create New Account</Link></small></p>
-
-                  <SocialSignIn></SocialSignIn>
-                </div>
-
-            </div>
-
-        </div>
-
-    );
+          <p className="text-error text-sm">{error?.message}</p>
+          <input
+            type="submit"
+            className="btn rounded-md border border-orange-600 text-white font-semibold"
+            value="Log in"
+          />
+          <p className="text-sm mt-2 text-center">
+            Need an account?
+            <Link className="text-secondary" to="/signup">
+              Sign up
+            </Link>
+          </p>
+        </form>
+        <p className="text-error text-sm my-4">{GError?.message}</p>
+        <button
+          onClick={() => signInWithGoogle()}
+          className="btn btn-outline rounded-md border border-orange-600 w-full pr-16 lg:pr-20"
+        >
+          <img className="mr-12 lg:mr-20" width={30} src={google} alt="" />{" "}
+          Continue With Google
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default Login;

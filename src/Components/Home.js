@@ -3,8 +3,8 @@ import AutoPlay from './AutoCarusel/AutoCausel';
 import Banner from './Banner/Banner';
 import BusinessSummary from './BusinessSummery/BusinessSummery';
 import Contact from './Contact/Contact';
-import EquipmentSection from './EquipmentSection/EquipmentSection';
-import Review from '../Components/Review/Review';
+import Products from './Equipment/Products';
+import Review from './Review/Review';
 import Footer from './Shared/Footer/Footer';
 
 const Home = () => {
@@ -12,7 +12,7 @@ const Home = () => {
     <div>
       <Banner></Banner>
       <BusinessSummary></BusinessSummary>
-      <EquipmentSection></EquipmentSection>
+     <Products></Products>
       <Review></Review>
       <AutoPlay></AutoPlay>
       <Contact></Contact>
