@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 const Product = ({ product }) => {
   const { _id, price,  description, img, name, maxQty,  minQty } = product;
+  console.log(product);
 
   return (
     <div className="card rounded-sm bg-base-100 shadow-xl">
