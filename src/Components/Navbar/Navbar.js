@@ -29,6 +29,9 @@ const Navbar = () => {
       <li>
         <CustomLink to="/myPortfolio">My Portfolio</CustomLink>
       </li>
+      <li>
+              <CustomLink to="/users">All Users</CustomLink>
+        </li>
       {user && (
         <li>
           <CustomLink to="/dashboard/myProfile">Dashboard</CustomLink>

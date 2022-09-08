@@ -3,11 +3,11 @@ import { NavLink, Outlet } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import Loading from "../../Components/Shared/Loading/Loading";
-// import useAdmin from "../Hooks/useAdmin";
+ import useAdmin from "../Hooks/useAdmin";
 
 const Dashboard = () => {
   const [user, loading] = useAuthState(auth);
-//   const [admin, adminLoading] = useAdmin(user);
+   const [admin, adminLoading] = useAdmin(user);
   const [dbUser, setDbUser] = useState({});
   useEffect(() => {
     const email = user?.email;
@@ -24,7 +24,7 @@ const Dashboard = () => {
       });
   }, [user]);
 
-  if (loading) {
+  if (loading || adminLoading) {
     return <Loading></Loading>;
   }
 
@@ -52,7 +52,7 @@ const Dashboard = () => {
               </li>
             </>
           )}
-          {/* {admin && (
+          {admin && (
             <>
               <li>
                 <NavLink to="/dashboard/addProduct">Add A Product</NavLink>
@@ -71,7 +71,7 @@ const Dashboard = () => {
                 <NavLink to="/dashboard/makeAdmin">Make Admin</NavLink>
               </li>
             </>
-          )} */}
+          )}
         </ul>
       </div>
     </div>

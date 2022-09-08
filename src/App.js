@@ -14,6 +14,9 @@ import AddReview from './Components/Dashborad/AddReview';
 import PurchaseProduct from './Components/Purchase/PurchaseProduct';
 import MyOrder from './Components/Dashborad/MyOrder';
 import MyPortfolio from './Components/MyPortfolio/MyPortfolio';
+import RequiredAdmin from './Components/Hooks/RequiredAdmin';
+import MakeAdmin from './Components/Dashborad/AdminPanel/MakeAdmin';
+
 
 
 
@@ -26,7 +29,6 @@ function App() {
         <Route path="/login" element={<Login/>}></Route>
         <Route path="/signup" element={<SignUp/>}></Route>
         <Route path="/myPortfolio" element={<MyPortfolio/>}></Route>
-
         <Route
           path="/purchase-product/:id"
           element={
@@ -50,8 +52,22 @@ function App() {
 <Route path="myProfile" element={<MyProfile />}></Route>
 <Route path="myOrders" element={<MyOrder />}></Route>
 <Route path="addReview" element={<AddReview />}></Route>
+
+
+
+
+            <Route
+            path="makeAdmin"
+            element={
+              <RequiredAdmin>
+                <MakeAdmin/>
+              </RequiredAdmin>
+            }
+          ></Route>
+
           </Route>
 
+         
       </Routes>
       <ToastContainer />
     </div>
