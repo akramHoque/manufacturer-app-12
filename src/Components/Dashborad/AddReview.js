@@ -30,7 +30,7 @@ const AddReview = () => {
       text: reviewText,
       rating: rating,
     };
-    fetch(`http://localhost:5000/review`, {
+    fetch(`https://guarded-ocean-36230.herokuapp.com/review`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

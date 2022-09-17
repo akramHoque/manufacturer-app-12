@@ -25,8 +25,6 @@ import ManageProducts from './Components/Dashborad/AdminPanel/ManageProducts';
 import ManageAllOrders from './Components/Dashborad/AdminPanel/ManageAllOrders';
 
 
-
-
 function App() {
   return (
     <div >

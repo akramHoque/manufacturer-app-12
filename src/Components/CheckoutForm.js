@@ -8,7 +8,7 @@ import {
 import { toast } from "react-toastify";
 
 const CheckoutForm = ({ order }) => {
-  
+
   const stripe = useStripe();
   const elements = useElements();
   const [clientSecret, setClientSecret] = useState("");
@@ -19,7 +19,7 @@ const CheckoutForm = ({ order }) => {
   const { totalPrice, _id, customerName, customerEmail, productName } = order;
   useEffect(() => {
     fetch(
-      "http://localhost:5000/create-payment-intent",
+      "https://guarded-ocean-36230.herokuapp.com/create-payment-intent",
       {
         method: "POST",
         headers: {
@@ -82,7 +82,7 @@ const CheckoutForm = ({ order }) => {
         productName: productName,
         customerName: customerName,
       };
-      fetch(`http://localhost:5000/order/${_id}`, {
+      fetch(`https://guarded-ocean-36230.herokuapp.com/order/${_id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
@@ -123,7 +123,7 @@ const CheckoutForm = ({ order }) => {
         <button
           className="btn rounded-md border bg-green-600 text-gray-100 mt-4 block mx-auto"
           type="submit"
-          disabled={!stripe }
+          disabled={!stripe}
         >
           Pay
         </button>
@@ -135,7 +135,7 @@ const CheckoutForm = ({ order }) => {
         <div className="text-green-500">
           {success}
           <p>
-            Your Transaction Id Is: 
+            Your Transaction Id Is:
             <span className="text-orange-500 text-center text-sm font-bold">
               {transactionId}
             </span>

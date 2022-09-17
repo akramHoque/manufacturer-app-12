@@ -32,7 +32,7 @@ const PurchaseForm = ({ product }) => {
       customerAddress: address,
       orderQty: quantity,
     };
-    fetch("http://localhost:5000/order", {
+    fetch("https://guarded-ocean-36230.herokuapp.com/order", {
       method: "POST",
       headers: {
         "content-type": "application/json",

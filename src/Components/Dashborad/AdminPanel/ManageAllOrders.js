@@ -11,7 +11,7 @@ const ManageAllOrders = () => {
     isLoading,
     refetch,
   } = useQuery("orders", () =>
-    fetch("http://localhost:5000/orders", {
+    fetch("https://guarded-ocean-36230.herokuapp.com/orders", {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -21,7 +21,7 @@ const ManageAllOrders = () => {
   );
   const handleShipped = (id) => {
     fetch(
-      `http://localhost:5000/order/shipped/${id}`,
+      `https://guarded-ocean-36230.herokuapp.com/order/shipped/${id}`,
       {
         method: "PATCH",
         headers: {
