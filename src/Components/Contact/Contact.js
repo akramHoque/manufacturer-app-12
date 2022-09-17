@@ -18,7 +18,7 @@ const Contact = () => {
               <textarea className="textarea textarea-success" placeholder="Your message"></textarea>
               </div>
               <div className="form-control">
-                <button className="btn  text-white text-[#1B1464]   my-5">Submit</button>
+                <button className="btn  text-white text-white   my-5">Submit</button>
               </div>
           </form>
       </div>

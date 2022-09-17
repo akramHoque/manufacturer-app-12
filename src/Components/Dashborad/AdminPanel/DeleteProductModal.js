@@ -1,10 +1,10 @@
 import React from "react";
 import { toast } from "react-toastify";
 
-const DeleteOrderModal = ({ deleteOrder, setDeleteOrder, refetch }) => {
-  const { productName, _id } = deleteOrder;
-  const handleDeleteOrder = () => {
-    fetch(`http://localhost:5000/order/${_id}`, {
+const DeleteProductModal = ({ deleteProduct, setDeleteProduct, refetch }) => {
+  const { name, _id } = deleteProduct;
+  const handleDeleteProduct = () => {
+    fetch(`http://localhost:5000/equitment/${_id}`, {
       method: "DELETE",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -13,26 +13,31 @@ const DeleteOrderModal = ({ deleteOrder, setDeleteOrder, refetch }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount) {
-          toast("Your Order Delete");
-          setDeleteOrder(null);
+          toast.error("Product Deleted");
+          setDeleteProduct(null);
           refetch();
         }
       });
   };
   return (
     <div>
-      <input type="checkbox" id="delete-modal" className="modal-toggle" />
+      <input
+        type="checkbox"
+        id="delete-order-byAdmin-modal"
+        className="modal-toggle"
+      />
       <div className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-2xl">Are you sure?</h3>
           <p className="py-4">
-            you want to delete {productName} from your order!!
+            you want to delete
+            <span className="text-secondary"> {name}</span>!!!
           </p>
           <div className="modal-action">
-            <button onClick={handleDeleteOrder} className="btn btn-error">
+            <button onClick={handleDeleteProduct} className="btn btn-error">
               Delete
             </button>
-            <label htmlFor="delete-modal" className="btn">
+            <label htmlFor="delete-order-byAdmin-modal" className="btn">
               Cancel
             </label>
           </div>
@@ -42,4 +47,4 @@ const DeleteOrderModal = ({ deleteOrder, setDeleteOrder, refetch }) => {
   );
 };
 
-export default DeleteOrderModal;
+export default DeleteProductModal;

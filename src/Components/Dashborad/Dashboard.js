@@ -3,15 +3,15 @@ import { NavLink, Outlet } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import Loading from "../../Components/Shared/Loading/Loading";
- import useAdmin from "../Hooks/useAdmin";
+import useAdmin from "../Hooks/useAdmin";
 
 const Dashboard = () => {
   const [user, loading] = useAuthState(auth);
-   const [admin, adminLoading] = useAdmin(user);
+  const [admin, adminLoading] = useAdmin(user);
   const [dbUser, setDbUser] = useState({});
   useEffect(() => {
     const email = user?.email;
-    fetch(`https://afternoon-coast-40665.herokuapp.com/user/${email}`, {
+    fetch(`http://localhost:5000/user/${email}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",

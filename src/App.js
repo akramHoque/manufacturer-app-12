@@ -19,6 +19,10 @@ import MakeAdmin from './Components/Dashborad/AdminPanel/MakeAdmin';
 import Blogs from './Components/Blogs/Blogs'
 import NotFound from './Components/NotFound/NotFound';
 import Contact from './Components/Contact/Contact';
+import Payment from './Components/Payment';
+import AddProduct from './Components/Dashborad/AdminPanel/AddProduct';
+import ManageProducts from './Components/Dashborad/AdminPanel/ManageProducts';
+import ManageAllOrders from './Components/Dashborad/AdminPanel/ManageAllOrders';
 
 
 
@@ -44,9 +48,6 @@ function App() {
           }
         ></Route>
 
-
-
-
         <Route
           path="/dashboard"
           element={
@@ -57,16 +58,39 @@ function App() {
         >
 <Route path="myProfile" element={<MyProfile />}></Route>
 <Route path="myOrders" element={<MyOrder />}></Route>
+<Route path="payment/:orderId" element={<Payment />}></Route>
 <Route path="addReview" element={<AddReview />}></Route>
-
-
-
 
             <Route
             path="makeAdmin"
             element={
               <RequiredAdmin>
                 <MakeAdmin/>
+              </RequiredAdmin>
+            }
+          ></Route>
+          <Route
+            path="addProduct"
+            element={
+              <RequiredAdmin>
+                <AddProduct />
+              </RequiredAdmin>
+            }
+          ></Route>
+            <Route
+            path="manageProducts"
+            element={
+              <RequiredAdmin>
+                <ManageProducts />
+              </RequiredAdmin>
+            }
+          ></Route>
+
+          <Route
+            path="manageAllOrders"
+            element={
+              <RequiredAdmin>
+                <ManageAllOrders />
               </RequiredAdmin>
             }
           ></Route>
